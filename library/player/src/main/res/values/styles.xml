@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StreamitStyled.ExoStyledControls.Button.Center.PlayPause" parent="ExoStyledControls.Button.Center.PlayPause">
+        <item name="android:src">@drawable/exo_styled_controls_play</item>
+        <item name="android:contentDescription">@string/exo_controls_play_description</item>
+        <item name="android:padding">@dimen/exo_icon_padding</item>
+    </style>
+
+    <style name="StreamitStyled.ExoStyledControls.Button.Bottom.CC" parent="ExoStyledControls.Button.Bottom.CC">
+        <item name="android:src">@drawable/exo_styled_controls_subtitle_off</item>
+        <item name="android:contentDescription">@string/exo_controls_cc_disabled_description</item>
+    </style>
+</resources>
