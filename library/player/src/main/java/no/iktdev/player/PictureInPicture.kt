@@ -1,5 +1,6 @@
 package no.iktdev.player
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.PendingIntent
 import android.app.PictureInPictureParams
@@ -75,9 +76,14 @@ class PictureInPicture(val activity: PlayerActivity) {
 
     private var playerView: StyledPlayerView? = null
     private var registeredReceiver: Boolean = false
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     fun registerReceiver(playerView: StyledPlayerView) {
         this.playerView = playerView
-        activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value), Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value))
+        }
         registeredReceiver = true
     }
 

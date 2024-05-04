@@ -6,7 +6,7 @@ plugins {
 }
 
 ext {
-    androidSdkVersion = 33
+    androidSdkVersion = 34
     androidMinSdk = 21
 
     javaVersion = JavaVersion.VERSION_11
