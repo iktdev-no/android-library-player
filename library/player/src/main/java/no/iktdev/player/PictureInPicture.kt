@@ -37,14 +37,16 @@ class PictureInPicture(val activity: PlayerActivity) {
         val playerView = this.playerView ?: throw RuntimeException("PlayerView is not set!")
 
         val builder = PictureInPictureParams.Builder()
-        val rational = if (invertPlayerAspect) Rational(playerView.height, playerView.width) else Rational(playerView.width, playerView.height)
+        val rational = if (invertPlayerAspect) Rational(playerView.width, playerView.height) else Rational(playerView.height, playerView.width)
 
         val remoteActionList: MutableList<RemoteAction> = ArrayList()
         remoteActionList.add(getPlayPauseRemoteAction(playerView.player?.isPlaying ?: false))
         builder.setActions(remoteActionList)
         builder.setAspectRatio(rational)
-        val built = builder.build()
-        return built
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            builder.setAutoEnterEnabled(true)
+        }
+        return builder.build()
     }
 
     private fun PendingIntentFlag(flags: Int): Int {
@@ -80,7 +82,7 @@ class PictureInPicture(val activity: PlayerActivity) {
     fun registerReceiver(playerView: StyledPlayerView) {
         this.playerView = playerView
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value), Context.RECEIVER_NOT_EXPORTED)
+            activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value), Context.RECEIVER_EXPORTED)
         } else {
             activity.registerReceiver(pipReceiver, IntentFilter(IntentFilter.FILTER_PIP_PLAYBACK.value))
         }
