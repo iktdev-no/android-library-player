@@ -58,7 +58,7 @@ afterEvaluate {
                 /// name "SettingsLibrary"
                 groupId "no.iktdev.android"
                 artifactId "player"
-                version '0.0.4.4'
+                version '1.0.0'
 
                 artifact(bundleReleaseAar)
             }

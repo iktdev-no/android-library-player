@@ -12,7 +12,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import no.iktdev.demoapplication.databinding.ActivityMainBinding
-import no.iktdev.demoapplication.services.LockscreenWidgetActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,19 +20,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.startLockActivity.setOnClickListener {
-            startActivity(Intent(applicationContext, LockscreenWidgetActivity::class.java))
-        }
 
-
-        binding.startScreen.setOnClickListener {
-            startActivity(Intent(applicationContext, OverlayActivity::class.java))
-            lifecycleScope.launch(Dispatchers.IO) {
-                delay(500)
-                withContext(Dispatchers.Main) {
-                    this@MainActivity.finish()
-                }
-            }
-        }
     }
 }

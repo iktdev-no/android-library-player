@@ -12,6 +12,7 @@ import android.content.IntentFilter
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.util.Rational
+import android.view.View
 import androidx.annotation.RequiresApi
 import com.google.android.exoplayer2.ui.StyledPlayerView
 
@@ -31,13 +32,11 @@ class PictureInPicture(val activity: PlayerActivity) {
     }
 
 
-    // This was due to a mal-implementation in Android 11, which caused the PIP to become vertical
-    var invertPlayerAspect: Boolean = false
     fun getPictureInPictureParams(): PictureInPictureParams {
         val playerView = this.playerView ?: throw RuntimeException("PlayerView is not set!")
-
         val builder = PictureInPictureParams.Builder()
-        val rational = if (invertPlayerAspect) Rational(playerView.width, playerView.height) else Rational(playerView.height, playerView.width)
+
+        val rational = Rational(16, 9) //if (invertPlayerAspect) Rational(playerView.width, playerView.height) else Rational(playerView.height, playerView.width)
 
         val remoteActionList: MutableList<RemoteAction> = ArrayList()
         remoteActionList.add(getPlayPauseRemoteAction(playerView.player?.isPlaying ?: false))
