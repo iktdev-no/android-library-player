@@ -70,7 +70,7 @@ class ScreenMode(val activity: Activity, val playerView: StyledPlayerView, val a
 
 
     interface Listener {
-        fun onAspectModeChanged(aspect: Aspect)
-        fun onNotchModeChanged(notch: Notch)
+        fun onAspectModeChanged(aspect: Aspect) {}
+        fun onNotchModeChanged(notch: Notch) {}
     }
 }
