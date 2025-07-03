@@ -9,12 +9,10 @@ import com.google.android.exoplayer2.source.*
 import com.google.android.exoplayer2.upstream.*
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
-import no.iktdev.networking.Security
-import no.iktdev.networking.client.Http
 import no.iktdev.player.SourceMode
 import no.iktdev.player.classes.Subtitle
 
-class MediaSourceUtil(val context: Context, private val transferListener: TransferListener? = null, val mode: SourceMode) {
+class MediaSourceUtil(val context: Context, private val transferListener: TransferListener? = null, val mode: SourceMode, val authorizationBearerToken: String? = null) {
     val agent: String = Util.getUserAgent(context, "StreamIT")
     private var dataSourceFactory: DataSource.Factory = if (mode == SourceMode.STORAGE) getLocalDataSource() else getWebDataSource()
 
@@ -22,7 +20,7 @@ class MediaSourceUtil(val context: Context, private val transferListener: Transf
         val httpSource: HttpDataSource.Factory = DefaultHttpDataSource.Factory().apply { setUserAgent(agent); setTransferListener(transferListener) }
         if (mode == SourceMode.CONNECTION_AUTHENTICATED) {
             httpSource.setDefaultRequestProperties(mapOf(
-                Pair("Authorization", "Bearer ${Security.authorizationBearerToken}")
+                Pair("Authorization", "Bearer $authorizationBearerToken")
             ))
         }
         return httpSource
