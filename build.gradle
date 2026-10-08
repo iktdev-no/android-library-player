@@ -7,7 +7,7 @@ plugins {
 
 ext {
     androidSdkVersion = 34
-    androidMinSdk = 21
+    androidMinSdk = 23
 
     javaVersion = JavaVersion.VERSION_11
     kotlinJvmTarget = '11'
